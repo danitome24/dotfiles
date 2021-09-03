@@ -1,7 +1,7 @@
 # If you modify this execute `zimfw uninstall & zimfw install`
 zmodule environment
 zmodule git-info
-zmodule history
+# zmodule history
 zmodule input
 zmodule completion
 zmodule zsh-users/zsh-autosuggestions

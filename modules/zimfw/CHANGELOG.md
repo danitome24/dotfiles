@@ -7,13 +7,81 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-_No unreleased changes._
+### Fixed
+- Error in `zimfw update` with the `git` tool when module directory is under an
+  unresolved symlink.
+
+## [1.5.0] - 2021-08-10
+
+### Added
+- Option to use the new `degit` tool in `zmodule`, that is able to install and
+  update modules from GitHub without requiring `git`. Modules are installed
+  faster and take less disk space when using this tool. It can be set as the
+  default with `zstyle ':zim:zmodule' use 'degit'`.
+
+### Fixed
+- Force `core.autocrlf=false` when doing `git clone`.
+  (See [#404](https://github.com/zimfw/zimfw/issues/404))
+- Allow uninstalling modules with custom names that have a slash.
+
+
+## [1.4.3] - 2021-03-19
+
+### Fixed
+- Prefer the prezto module format when using defaults to initialize a module.
+  This is the format we use in our Zim framework modules. It's not well
+  documented anywhere officially, but in short words a prezto module can have:
+  * a `functions` subdirectory that is added to the fpath by the framework,
+  * files inside the `functions` subdirectory that are autoloaded by the
+    framework (except for those with names matching `_*` or `prompt_*_setup`),
+  * an `init.zsh` file that is sourced by the framework.
+
+## [1.4.2] - 2021-02-19
+
+### Fixed
+- "Not a valid ref: refs/remotes/origin/main" error in `zimfw update`, when the
+  repository's default branch was renamed to main.
+
+## [1.4.1] - 2021-02-17
+
+### Fixed
+- Correctly get the repository's default branch in `zimfw update`. The related
+  change in version 1.4.0 actually broke updating the modules, as new changes
+  stopped being fetched.
+
+## [1.4.0] - 2021-01-07
+
+### Added
+- Prompt before uninstalling modules, unless `-q` is set.
+- Show build date in info.
+
+### Fixed
+- Show error when no parameter is provided to `-c|--cmd` in `zmodule`.
+- Use repository's default branch instead of hardcoding the default to `master`
+  in `zimfw update`, when no branch is specified in `zmodule`.
+
+## [1.3.2] - 2020-08-01
+
+### Fixed
+- Compiled files must also be cleaned from modules defined with absolute paths.
+
+## [1.3.1] - 2020-07-24
+
+### Fixed
+- "gzip: stdin: unexpected end of file" error when trying to upgrade.
+  (See [#407](https://github.com/zimfw/zimfw/issues/407))
+
+## [1.3.0] - 2020-07-05
+
+### Added
+- `-c|-cmd` option to `zmodule`. This allows for executing any specified command.
 
 ## [1.2.2] - 2020-06-10
 
 ### Fixed
 - Allow local modules to be initialized and compiled in their respective
-  directories, instead of forcing them to be installed inside `ZIM_HOME`.
+  directories, when absolute paths are given, instead of forcing them to be
+  installed inside `ZIM_HOME`.
 
 ## [1.2.1] - 2020-05-26
 
@@ -122,7 +190,15 @@ Take your time to review the updated [README.md] and the changes listed below.
 [termtitle]: https://github.com/zimfw/termtitle
 [s1ck94]: https://github.com/zimfw/s1ck94
 
-[Unreleased]: https://github.com/zimfw/zimfw/compare/v1.2.2...HEAD
+[Unreleased]: https://github.com/zimfw/zimfw/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/zimfw/zimfw/compare/v1.4.3...v1.5.0
+[1.4.3]: https://github.com/zimfw/zimfw/compare/v1.4.2...v1.4.3
+[1.4.2]: https://github.com/zimfw/zimfw/compare/v1.4.1...v1.4.2
+[1.4.1]: https://github.com/zimfw/zimfw/compare/v1.4.0...v1.4.1
+[1.4.0]: https://github.com/zimfw/zimfw/compare/v1.3.2...v1.4.0
+[1.3.2]: https://github.com/zimfw/zimfw/compare/v1.3.1...v1.3.2
+[1.3.1]: https://github.com/zimfw/zimfw/compare/v1.3.0...v1.3.1
+[1.3.0]: https://github.com/zimfw/zimfw/compare/v1.2.2...v1.3.0
 [1.2.2]: https://github.com/zimfw/zimfw/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/zimfw/zimfw/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/zimfw/zimfw/compare/v1.1.1...v1.2.0
