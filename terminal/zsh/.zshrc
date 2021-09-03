@@ -24,3 +24,14 @@ autoload -Uz promptinit && promptinit
 prompt codelytv
 
 source $DOTFILES_PATH/terminal/zsh/key-bindings.zsh
+
+META_REPOSITORY_PATH=/home/dtome/Workspace/sred/meta
+if [ ! -d $META_REPOSITORY_PATH ]
+then
+    echo "WARNING: Meta repo cannot be found!"
+    echo "Clone meta repo: git clone ssh://git@10.40.32.1:2022/sre/meta.git"
+    echo " and set its path to META_REPOSITORY_PATH variable."
+fi
+
+PATH="$PATH:$META_REPOSITORY_PATH/bin:$META_REPOSITORY_PATH/git/sred/bin:$META_REPOSITORY_PATH/git/gitlab/bin:$META_REPOSITORY_PATH/git/bin"
+export PATH

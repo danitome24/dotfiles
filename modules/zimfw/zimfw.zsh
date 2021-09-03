@@ -30,7 +30,7 @@ autoload -Uz is-at-least && if ! is-at-least 5.2; then
 fi
 
 # Define Zim location
-if (( ! ${+ZIM_HOME} )) typeset -g ZIM_HOME=${0:A:h}
+: ${ZIM_HOME=${0:A:h}}
 
 _zimfw_print() {
   if (( _zprintlevel > 0 )) print "${@}"
@@ -124,7 +124,8 @@ Repository options:
   %B-u%b|%B--use%b <%Bgit%b|%Bdegit%b>       Install and update the module using the defined tool. Default is
                              defined by %Bzstyle ':zim:zmodule' use '%b<%Bgit%b|%Bdegit%b>%B'%b, or %Bgit%b if none
                              is provided.
-                             %Bgit%b requires git itself. Local changes are preserved during updates.
+                             %Bgit%b requires git to be installed. Local changes are preserved during
+                             updates.
                              %Bdegit%b requires curl or wget, and currently only works with GitHub
                              URLs. Modules install faster and take less disk space. Local changes
                              are lost during updates. Git submodules are not supported.
@@ -338,7 +339,7 @@ _zimfw_compile() {
 }
 
 _zimfw_info() {
-  print -R 'zimfw version: '${_zversion}' (built at 2021-08-31 23:40:27 UTC, previous commit is e56048f)'
+  print -R 'zimfw version: '${_zversion}' (built at 2021-08-10 14:52:54 UTC, previous commit is 35cd6f5)'
   print -R 'ZIM_HOME:      '${ZIM_HOME}
   print -R 'Zsh version:   '${ZSH_VERSION}
   print -R 'System info:   '$(command uname -a)
@@ -595,7 +596,7 @@ case \${ACTION} in
       print_error \"Error during cd \${DIR}\"
       return 1
     fi
-    if [[ \${PWD:A} != \${\$(command git rev-parse --show-toplevel 2>/dev/null):A} ]]; then
+    if [[ \${PWD} != \$(command git rev-parse --show-toplevel 2>/dev/null) ]]; then
       print_error \"Module was not installed using git. Will not try to update. You can disable this with the zmodule option -z|--frozen.\"
       return 1
     fi
@@ -660,7 +661,7 @@ esac
 }
 
 zimfw() {
-  local -r _zversion='1.5.1-SNAPSHOT' zusage="Usage: %B${0}%b <action> [%B-q%b|%B-v%b]
+  local -r _zversion='1.5.0' zusage="Usage: %B${0}%b <action> [%B-q%b|%B-v%b]
 
 Actions:
   %Bbuild%b           Build %Binit.zsh%b and %Blogin_init.zsh%b
