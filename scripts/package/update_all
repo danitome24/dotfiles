@@ -13,7 +13,7 @@ source "$DOTFILES_PATH/scripts/core/_main.sh"
 docs::eval_help "$@"
 
 echo '🍎 Updating Ubuntu packages'
-sudo apt update
+sudo apt -qq update
 sudo apt upgrade
 
 echo ''
@@ -21,3 +21,7 @@ echo '⚡️ ZSH Zim'
 zsh ${ZIM_HOME}/zimfw.zsh upgrade
 zsh ${ZIM_HOME}/zimfw.zsh update
 zsh ${ZIM_HOME}/zimfw.zsh uninstall & zsh ${ZIM_HOME}/zimfw.zsh install
+
+echo ''
+echo '👷  SREd repositories'
+"$DOTFILES_PATH/bin/dot" sred update_projects

@@ -2,6 +2,9 @@
 #alias out="dot package outdated"
 alias up="dot package update_all"
 
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+
 # Others
 alias c='pbcopy'
 alias dc='dot docker connect'

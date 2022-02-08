@@ -1,6 +1,6 @@
 [user]
 	name = Daniel Tomé Fernández
-	email = danieltomefer@gmail.com
+	email = daniel.tome@urv.cat
 
 [fetch]
 	prune = true
@@ -46,7 +46,7 @@
 	textconv = docx2txt
 
 [credential]
-	helper = osxkeychain
+	helper = store
 
 [pager]
 	diff = pretty-diff | less --tabs=4 -RFX

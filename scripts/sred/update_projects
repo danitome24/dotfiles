@@ -1,0 +1,45 @@
+#!/usr/bin/env zsh
+
+set -euo pipefail
+
+source "$DOTFILES_PATH/scripts/core/_main.sh"
+
+##? Update all git projects
+#?? 1.0.0
+##?
+##? Usage:
+##?    update_projects
+
+cd /home/dtome/Workspace/sred/moodle
+git stash clear
+git add . && git stash save
+git reload
+has_content=$(git stash list)
+if [ -z "$has_content"  ];
+then
+  echo "No changes to apply"
+else
+  git stash apply -q
+  echo "     🔋 Stash changes applied to repository"
+fi
+
+echo ''
+echo '👌 Moodle repository updated'
+
+cd /home/dtome/Workspace/sred/meta
+git stash clear
+git add . && git stash save
+git remote update && git rebase origin/master
+has_content=$(git stash list)
+if [ -z "$has_content"  ];
+then
+  echo "No changes to apply"
+else
+  git stash apply -q
+  echo "     🔋 Stash changes applied to repository"
+fi
+
+echo ''
+echo '👌 Meta repository updated'
+
+echo 'Done!'
