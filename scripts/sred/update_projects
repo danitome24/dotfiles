@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 set -euo pipefail
 
@@ -10,36 +10,47 @@ source "$DOTFILES_PATH/scripts/core/_main.sh"
 ##? Usage:
 ##?    update_projects
 
-cd /home/dtome/Workspace/sred/moodle
-git stash clear
-git add . && git stash save
-git reload
-has_content=$(git stash list)
-if [ -z "$has_content"  ];
-then
-  echo "No changes to apply"
-else
-  git stash apply -q
-  echo "     🔋 Stash changes applied to repository"
-fi
+flowsredrepositories="/home/dtome/Workspace/sred/moodle
+/home/dtome/Workspace/sred/next/moodle"
 
-echo ''
-echo '👌 Moodle repository updated'
+for flowsredrepository in $flowsredrepositories;
+do
+  cd $flowsredrepository
+  git stash clear
+  git add . && git stash save
+  git reload
+  has_content=$(git stash list)
+  if [ -z "$has_content"  ];
+  then
+    echo "No changes to apply"
+  else
+    git stash apply -q
+    echo "     🔋 Stash changes applied to repository"
+  fi
 
-cd /home/dtome/Workspace/sred/meta
-git stash clear
-git add . && git stash save
-git remote update && git rebase origin/master
-has_content=$(git stash list)
-if [ -z "$has_content"  ];
-then
-  echo "No changes to apply"
-else
-  git stash apply -q
-  echo "     🔋 Stash changes applied to repository"
-fi
+  echo ''
+  echo "👌 $flowsredrepository updated"
+  echo 'Done!'
+done
 
-echo ''
-echo '👌 Meta repository updated'
+repositories="/home/dtome/Workspace/sred/meta"
 
-echo 'Done!'
+for repository in $repositories;
+do
+  cd $repository
+  git stash clear
+  git add . && git stash save
+  git remote update && git rebase origin/master
+  has_content=$(git stash list)
+  if [ -z "$has_content"  ];
+  then
+    echo "No changes to apply"
+  else
+    git stash apply -q
+    echo "     🔋 Stash changes applied to repository"
+  fi
+
+  echo ''
+  echo "👌 $repository updated"
+  echo 'Done!'
+done
